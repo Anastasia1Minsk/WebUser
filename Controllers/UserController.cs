@@ -33,6 +33,11 @@ namespace WebUser.Controllers
         public async Task<IActionResult> GetUserWithRolesAsync(int userId)
         {
             var user = await _userService.GetByIdAsync(userId);
+            if (user == null)
+            {
+                BadRequest("There isn't such user");
+            }
+
             var result = _mapper.Map<UserReturnDto>(user);
             return Ok(result);
         }
